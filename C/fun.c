@@ -118,14 +118,14 @@ int main (int argc, char** argv){
     // The "12" was the inclusion of the rest of the characters used to define
     // the output format when printing the list of fizzbuzz values from 0 to n.
     if (!(output_outline = allocate_str(12))) {
-        printf("Failed to build/setup output...\nGo buying more RAM\n");
         free_partition_str_lst(lst, n);
+        printf("Failed to build/setup output...\nGo buying more RAM\n");
         return 0;
     }
     int nDigits = floor(log10(abs(n))) + 1;
     if (sprintf(output_outline, "#%%%dd: ", nDigits) < 0) {
-        printf("Failed to build/setup output...\nGo buying more RAM\n");
         free_partition_str_lst(lst, n);
+        printf("Failed to build/setup output...\nGo buying more RAM\n");
         return 0;
     }
     output_outline = strcat(output_outline, "%s\n");
