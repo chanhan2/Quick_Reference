@@ -124,6 +124,7 @@ int main (int argc, char** argv){
     }
     int nDigits = floor(log10(abs(n))) + 1;
     if (sprintf(output_outline, "#%%%dd: ", nDigits) < 0) {
+        printf("Failed to build/setup output...\nGo buying more RAM\n");
         free_partition_str_lst(lst, n);
         return 0;
     }
