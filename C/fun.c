@@ -93,7 +93,7 @@ int main (int argc, char** argv){
                            // returns a char pointer, so might as well just
                            // retrieve the output.
 
-    // The "+ 12" was the inclusion of the rest of the characters used to define
+    // The "12" was the inclusion of the rest of the characters used to define
     // the output format when printing the list of fuzzbuzz values from 0 to n.
     if (!(output_outline = allocate_str(12))) {
         printf("Failed to build/setup output...\nGo buying more RAM\n");
