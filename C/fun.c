@@ -9,6 +9,14 @@
  * integer:  https://stackoverflow.com/a/3068420
  */
 
+void free_partition_str_lst(char** lst, int idx) {
+    if (!lst) return;
+
+    int i;
+    for (i = 0; i <= idx; i++) free(lst[i]);
+    free(lst);
+}
+
 char* allocate_str(int n) {
     if (n <= 0) return NULL;
 
@@ -30,6 +38,7 @@ char* reallocate_str(char *word, int n) {
         return NULL;
     }
     str = strcpy(str, word);
+    free(word);
     return str;
 }
 
@@ -53,25 +62,38 @@ char** fizzbuzz(int n) {
 
     for (i = 0; i <= n; i++) {
         if (i % 3 == 0) {
-            if (!(lst[i] = allocate_str(strlen("fizz")))) return NULL;
+            if (!(lst[i] = allocate_str(strlen("fizz")))) {
+                free_partition_str_lst(lst, i);
+                return NULL;
+            }
             lst[i] = strcpy(lst[i], "fizz");
         }
         if (i % 5 == 0) {
             if (lst[i] == NULL) {
-                if (!(lst[i] = allocate_str(strlen("buzz")))) return NULL;
+                if (!(lst[i] = allocate_str(strlen("buzz")))) {
+                    free_partition_str_lst(lst, i);
+                    return NULL;
+                }
                 lst[i] = strcpy(lst[i], "buzz");
             } else {
-                if (!(lst[i] = reallocate_str(lst[i], strlen("buzz")))) return NULL;
+                if (!(lst[i] = reallocate_str(lst[i], strlen("buzz")))) {
+                    free_partition_str_lst(lst, i);
+                    return NULL;
+                }
                 lst[i] = strcat(lst[i], "buzz");
             }
         }
         if (lst[i] == NULL) {
             int nDigits = floor(log10(abs(i))) + 1;
             char snum[nDigits + 1];
-            if (sprintf(snum, "%d", i) < 0) return NULL;  // Could not convert
-                                                          // to string due to
-                                                          // low memory space
-            if (!(lst[i] = allocate_str(nDigits))) return NULL;
+            if (sprintf(snum, "%d", i) < 0) {    // Could not convert to string
+                free_partition_str_lst(lst, i);  // due to low memory space
+                return NULL;
+            }
+            if (!(lst[i] = allocate_str(nDigits))) {
+                free_partition_str_lst(lst, i);
+                return NULL;
+            }
             lst[i] = strcpy(lst[i], snum);
         }
     }
@@ -97,10 +119,14 @@ int main (int argc, char** argv){
     // the output format when printing the list of fizzbuzz values from 0 to n.
     if (!(output_outline = allocate_str(12))) {
         printf("Failed to build/setup output...\nGo buying more RAM\n");
+        free_partition_str_lst(lst, n);
         return 0;
     }
     int nDigits = floor(log10(abs(n))) + 1;
-    sprintf(output_outline, "#%%%dd: ", nDigits);
+    if (sprintf(output_outline, "#%%%dd: ", nDigits) < 0) {
+        free_partition_str_lst(lst, n);
+        return 0;
+    }
     output_outline = strcat(output_outline, "%s\n");
 
     int i;
