@@ -44,7 +44,7 @@ char** allocate_str_lst(int n) {
     return lst;
 }
 
-char** fuzzbuzz(int n) {
+char** fizzbuzz(int n) {
     char** lst;
     if (!(lst = allocate_str_lst(n + 1))) return NULL;
 
@@ -81,8 +81,8 @@ char** fuzzbuzz(int n) {
 int main (int argc, char** argv){
     int n = 20;
     char** lst;
-    if (!(lst = fuzzbuzz(n))) {
-        printf("Failed to build fuzzbuzz list...\nGo buying more RAM.");
+    if (!(lst = fizzbuzz(n))) {
+        printf("Failed to build fizzbuzz list...\nGo buying more RAM.");
         return 0;
     }
 
@@ -94,7 +94,7 @@ int main (int argc, char** argv){
                            // retrieve the output.
 
     // The "12" was the inclusion of the rest of the characters used to define
-    // the output format when printing the list of fuzzbuzz values from 0 to n.
+    // the output format when printing the list of fizzbuzz values from 0 to n.
     if (!(output_outline = allocate_str(12))) {
         printf("Failed to build/setup output...\nGo buying more RAM\n");
         return 0;
