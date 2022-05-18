@@ -79,18 +79,9 @@ int extendStrElem(char** lst, int idx, int l) {
 /* Appends the defined string to the corresponding index value to the list of
  * strings at index idx.
  *
- * @isBase: An indicator if the given defined string for the corresponding value
- *          is the base precedence.
- *
  * @val:    The value corresponding to the defined string.
  */
-int defineValue(char** lst, int val, int idx, char* str, int isBase) {
-    if (isBase && idx % val == 0) {
-        if (!strListAppend(lst, idx, str)) return 0;
-        lst[idx] = strcpy(lst[idx], str);
-        return 1;
-    }
-
+int defineValue(char** lst, int val, int idx, char* str) {
     if (idx % val == 0) {
         if (lst[idx] == NULL) {
             if (!strListAppend(lst, idx, str)) return 0;
@@ -111,8 +102,8 @@ char** fizzbuzz(int n) {
     for (i = 0; i <= n; i++) lst[i] = NULL;
 
     for (i = 0; i <= n; i++) {
-        if (!defineValue(lst, 3, i, "fizz", 1)) return NULL;
-        if (!defineValue(lst, 5, i, "buzz", 0)) return NULL;
+        if (!defineValue(lst, 3, i, "fizz")) return NULL;
+        if (!defineValue(lst, 5, i, "buzz")) return NULL;
         if (lst[i] == NULL) {
             int nDigits = floor(log10(abs(i))) + 1;
             char snum[nDigits + 1];
