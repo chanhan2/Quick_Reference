@@ -22,7 +22,7 @@ char* allocate_str(int n) {
 
     char* str;
     if (!(str = (char*)malloc(n * sizeof(char) + 1))) {
-        printf("Failed to allocate memory");
+        printf("Failed to allocate memory\n");
         return NULL;
     }
     return str;
@@ -34,7 +34,7 @@ char* reallocate_str(char *word, int n) {
     int current_size = strlen(word);
     char* str;
     if (!(str = (char*)malloc((current_size + n) * sizeof(char) + 1))) {
-        printf("Failed to allocate memory");
+        printf("Failed to allocate memory\n");
         return NULL;
     }
     str = strcpy(str, word);
@@ -47,7 +47,7 @@ char** allocate_str_lst(int n) {
 
     char** lst;
     if (!(lst = (char**)malloc(n * sizeof(char*)))) {
-        printf("Failed to allocate memory");
+        printf("Failed to allocate memory\n");
         return NULL;
     }
     return lst;
@@ -87,7 +87,7 @@ char** fizzbuzz(int n) {
             int nDigits = floor(log10(abs(i))) + 1;
             char snum[nDigits + 1];
             if (sprintf(snum, "%d", i) < 0) {         // Could not convert to
-                free_partition_str_lst(lst, i - 1);   // string due to low 
+                free_partition_str_lst(lst, i - 1);   // string due to low
                 return NULL;                          // memory space
             }
             if (!(lst[i] = allocate_str(nDigits))) {
@@ -104,7 +104,7 @@ int main (int argc, char** argv){
     int n = 20;
     char** lst;
     if (!(lst = fizzbuzz(n))) {
-        printf("Failed to build fizzbuzz list...\nGo buying more RAM.");
+        printf("Failed to build fizzbuzz list...\nGo buying more RAM.\n");
         return 0;
     }
 
