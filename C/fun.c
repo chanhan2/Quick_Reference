@@ -53,6 +53,27 @@ char** allocate_str_lst(int n) {
     return lst;
 }
 
+int strListAppend(char** lst, int idx, char* str) {
+    if (!lst) return 0;
+
+    if (!(lst[idx] = allocate_str(strlen(str)))) {
+        free_partition_str_lst(lst, idx - 1);
+        return 0;
+    }
+    return 1;
+}
+
+// extends the string element at index idx by length l of the string array
+int extendStrElem(char** lst, int idx, int l) {
+    if (!lst || !lst[idx]) return 0;
+
+    if (!(lst[idx] = reallocate_str(lst[idx], l))) {
+        free_partition_str_lst(lst, idx);
+        return 0;
+    }
+    return 1;
+}
+
 char** fizzbuzz(int n) {
     char** lst;
     if (!(lst = allocate_str_lst(n + 1))) return NULL;
@@ -62,24 +83,15 @@ char** fizzbuzz(int n) {
 
     for (i = 0; i <= n; i++) {
         if (i % 3 == 0) {
-            if (!(lst[i] = allocate_str(strlen("fizz")))) {
-                free_partition_str_lst(lst, i - 1);
-                return NULL;
-            }
+            if (!strListAppend(lst, i, "fizz")) return NULL;
             lst[i] = strcpy(lst[i], "fizz");
         }
         if (i % 5 == 0) {
             if (lst[i] == NULL) {
-                if (!(lst[i] = allocate_str(strlen("buzz")))) {
-                    free_partition_str_lst(lst, i - 1);
-                    return NULL;
-                }
+                if (!strListAppend(lst, i, "buzz")) return NULL;
                 lst[i] = strcpy(lst[i], "buzz");
             } else {
-                if (!(lst[i] = reallocate_str(lst[i], strlen("buzz")))) {
-                    free_partition_str_lst(lst, i);
-                    return NULL;
-                }
+                if (!extendStrElem(lst, i, strlen("buzz"))) return NULL;
                 lst[i] = strcat(lst[i], "buzz");
             }
         }
