@@ -63,13 +63,42 @@ int strListAppend(char** lst, int idx, char* str) {
     return 1;
 }
 
-// extends the string element at index idx by length l of the string array
+// Extends the string element at index idx by length l of the string array
 int extendStrElem(char** lst, int idx, int l) {
-    if (!lst || !lst[idx]) return 0;
+    if (!lst || !lst[idx] || l < 0) return 0;
+
+    if (!l) return 1;
 
     if (!(lst[idx] = reallocate_str(lst[idx], l))) {
         free_partition_str_lst(lst, idx);
         return 0;
+    }
+    return 1;
+}
+
+/* Appends the defined string to the corresponding index value to the list of
+ * strings at index idx.
+ *
+ * @isBase: An indicator if the given defined string for the corresponding value
+ *          is the base precedence.
+ *
+ * @val:    The value corresponding to the defined string.
+ */
+int defineValue(char** lst, int val, int idx, char* str, int isBase) {
+    if (isBase && idx % val == 0) {
+        if (!strListAppend(lst, idx, str)) return 0;
+        lst[idx] = strcpy(lst[idx], str);
+        return 1;
+    }
+
+    if (idx % val == 0) {
+        if (lst[idx] == NULL) {
+            if (!strListAppend(lst, idx, str)) return 0;
+            lst[idx] = strcpy(lst[idx], str);
+        } else {
+            if (!extendStrElem(lst, idx, strlen(str))) return 0;
+            lst[idx] = strcat(lst[idx], str);
+        }
     }
     return 1;
 }
@@ -82,19 +111,8 @@ char** fizzbuzz(int n) {
     for (i = 0; i <= n; i++) lst[i] = NULL;
 
     for (i = 0; i <= n; i++) {
-        if (i % 3 == 0) {
-            if (!strListAppend(lst, i, "fizz")) return NULL;
-            lst[i] = strcpy(lst[i], "fizz");
-        }
-        if (i % 5 == 0) {
-            if (lst[i] == NULL) {
-                if (!strListAppend(lst, i, "buzz")) return NULL;
-                lst[i] = strcpy(lst[i], "buzz");
-            } else {
-                if (!extendStrElem(lst, i, strlen("buzz"))) return NULL;
-                lst[i] = strcat(lst[i], "buzz");
-            }
-        }
+        if (!defineValue(lst, 3, i, "fizz", 1)) return NULL;
+        if (!defineValue(lst, 5, i, "buzz", 0)) return NULL;
         if (lst[i] == NULL) {
             int nDigits = floor(log10(abs(i))) + 1;
             char snum[nDigits + 1];
