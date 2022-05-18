@@ -63,7 +63,7 @@ char** fizzbuzz(int n) {
     for (i = 0; i <= n; i++) {
         if (i % 3 == 0) {
             if (!(lst[i] = allocate_str(strlen("fizz")))) {
-                free_partition_str_lst(lst, i);
+                free_partition_str_lst(lst, i - 1);
                 return NULL;
             }
             lst[i] = strcpy(lst[i], "fizz");
@@ -71,7 +71,7 @@ char** fizzbuzz(int n) {
         if (i % 5 == 0) {
             if (lst[i] == NULL) {
                 if (!(lst[i] = allocate_str(strlen("buzz")))) {
-                    free_partition_str_lst(lst, i);
+                    free_partition_str_lst(lst, i - 1);
                     return NULL;
                 }
                 lst[i] = strcpy(lst[i], "buzz");
@@ -86,12 +86,12 @@ char** fizzbuzz(int n) {
         if (lst[i] == NULL) {
             int nDigits = floor(log10(abs(i))) + 1;
             char snum[nDigits + 1];
-            if (sprintf(snum, "%d", i) < 0) {    // Could not convert to string
-                free_partition_str_lst(lst, i);  // due to low memory space
-                return NULL;
+            if (sprintf(snum, "%d", i) < 0) {         // Could not convert to
+                free_partition_str_lst(lst, i - 1);   // string due to low 
+                return NULL;                          // memory space
             }
             if (!(lst[i] = allocate_str(nDigits))) {
-                free_partition_str_lst(lst, i);
+                free_partition_str_lst(lst, i - 1);
                 return NULL;
             }
             lst[i] = strcpy(lst[i], snum);
