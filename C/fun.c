@@ -22,7 +22,7 @@ char* allocate_str(int n) {
 
     char* str;
     if (!(str = (char*)malloc(n * sizeof(char) + 1))) {
-        printf("Failed to allocate memory\n");
+        printf("Failed to allocate memory.\n");
         return NULL;
     }
     return str;
@@ -34,7 +34,7 @@ char* reallocate_str(char *word, int n) {
     int current_size = strlen(word);
     char* str;
     if (!(str = (char*)malloc((current_size + n) * sizeof(char) + 1))) {
-        printf("Failed to allocate memory\n");
+        printf("Failed to allocate memory.\n");
         return NULL;
     }
     str = strcpy(str, word);
@@ -47,7 +47,7 @@ char** allocate_str_lst(int n) {
 
     char** lst;
     if (!(lst = (char**)malloc(n * sizeof(char*)))) {
-        printf("Failed to allocate memory\n");
+        printf("Failed to allocate memory.\n");
         return NULL;
     }
     return lst;
