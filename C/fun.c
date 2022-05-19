@@ -121,7 +121,7 @@ char** fizzbuzz(int n) {
     return lst;
 }
 
-int main (int argc, char** argv){
+int main (int argc, char** argv) {
     int n = 20;
     char** lst;
     if (!(lst = fizzbuzz(n))) {
@@ -140,13 +140,13 @@ int main (int argc, char** argv){
     // the output format when printing the list of fizzbuzz values from 0 to n.
     if (!(output_outline = allocate_str(12))) {
         free_partition_str_lst(lst, n);
-        printf("Failed to build/setup output...\nGo buying more RAM\n");
+        printf("Failed to build/setup output...\nGo buying more RAM.\n");
         return 0;
     }
     int nDigits = floor(log10(abs(n))) + 1;
     if (sprintf(output_outline, "#%%%dd: ", nDigits) < 0) {
         free_partition_str_lst(lst, n);
-        printf("Failed to build/setup output...\nGo buying more RAM\n");
+        printf("Failed to build/setup output...\nGo buying more RAM.\n");
         return 0;
     }
     output_outline = strcat(output_outline, "%s\n");
