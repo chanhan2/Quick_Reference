@@ -53,41 +53,24 @@ char** allocate_str_lst(int n) {
     return lst;
 }
 
-int strListAppend(char** lst, int idx, char* str) {
-    if (!lst) return 0;
-
-    if (!(lst[idx] = allocate_str(strlen(str)))) {
-        free_partition_str_lst(lst, idx - 1);
-        return 0;
-    }
-    return 1;
-}
-
-// Extends the string element at index idx by length l of the string array
-int extendStrElem(char** lst, int idx, int l) {
-    if (!lst || !lst[idx] || l < 0) return 0;
-
-    if (!l) return 1;
-
-    if (!(lst[idx] = reallocate_str(lst[idx], l))) {
-        free_partition_str_lst(lst, idx);
-        return 0;
-    }
-    return 1;
-}
-
 /* Appends the defined string to the corresponding index value to the list of
  * strings at index idx.
  *
  * @val:    The value corresponding to the defined string.
  */
-int defineValue(char** lst, int val, int idx, char* str) {
+int define_value(char** lst, int val, int idx, char* str) {
     if (idx % val == 0) {
         if (lst[idx] == NULL) {
-            if (!strListAppend(lst, idx, str)) return 0;
+            if (!(lst[idx] = allocate_str(strlen(str)))) {
+                free_partition_str_lst(lst, idx - 1);
+                return 0;
+            }
             lst[idx] = strcpy(lst[idx], str);
         } else {
-            if (!extendStrElem(lst, idx, strlen(str))) return 0;
+            if (!(lst[idx] = reallocate_str(lst[idx], strlen(str)))) {
+                free_partition_str_lst(lst, idx);
+                return 0;
+            }
             lst[idx] = strcat(lst[idx], str);
         }
     }
@@ -102,8 +85,8 @@ char** fizzbuzz(int n) {
     for (i = 0; i <= n; i++) lst[i] = NULL;
 
     for (i = 0; i <= n; i++) {
-        if (!defineValue(lst, 3, i, "fizz")) return NULL;
-        if (!defineValue(lst, 5, i, "buzz")) return NULL;
+        if (!define_value(lst, 3, i, "fizz")) return NULL;
+        if (!define_value(lst, 5, i, "buzz")) return NULL;
         if (lst[i] == NULL) {
             int nDigits = floor(log10(abs(i))) + 1;
             char snum[nDigits + 1];
@@ -152,11 +135,8 @@ int main (int argc, char** argv) {
     output_outline = strcat(output_outline, "%s\n");
 
     int i;
-    for (i = 0; i <= n; i++) {
-        printf(output_outline, i, lst[i]);
-        free(lst[i]);
-    }
-    free(lst);
+    for (i = 0; i <= n; i++) printf(output_outline, i, lst[i]);
+    free_partition_str_lst(lst, n);
     free(output_outline);
 
     return 0;
