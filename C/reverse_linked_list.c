@@ -39,7 +39,7 @@ struct ListNode* append_node(struct ListNode* head, struct ListNode* node) {
 // The actual reverse linked list part
 struct ListNode* append_list_mfnt(struct ListNode* lst1, struct ListNode* lst2) {
     /* append_list_mfnt() - Appends list lst1 to list lst2 by using "append to
-     *                      front method"
+     *                      front" method
      */
     if (!lst1) return lst2;
 
@@ -91,14 +91,8 @@ int setup_test_1() {
     }
 
     // Setting up initial list
-    n0 = append_node(
-             append_node(
-                 append_node(
-                     append_node(n0,
-                                 new_node(2)),
-                                 new_node(3)),
-                                 new_node(4)),
-                                 new_node(5));
+    int i;
+    for (i = 2; i <= 5; i++) n0 = append_node(n0, new_node(i));
 
     if (get_list_length(n0) != 5) return printf("Failed to create list\n");
 

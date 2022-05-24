@@ -47,4 +47,4 @@ do it in C.
 back to it again. And it is so that I can stop re-coding the same thing over and
 over again... Also, in functional programming languages like Scheme, Racket,
 CommonLisp and Haskell does this better, as it can be expressed as an explicit
-relation, much like a mathematical recursive relation. Just say =) ]
+relation, much like a mathematical recursive relation. Just saying =) ]
