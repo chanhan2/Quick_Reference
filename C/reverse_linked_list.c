@@ -101,16 +101,16 @@ int setup_test_1() {
 
     if (get_list_length(n0) != 5) return printf("Failed to create list\n");
 
-    // Print list
+    // Print initial linked list
     printf("Computed Input: head = [");
     print_list(n0);
     printf("]\n");
     printf("Expected Input: head = [1,2,3,4,5,]\n");
 
-    // Reverse list
+    // Reverse linked list
     n0 = reverseList(n0);
 
-    // Print list
+    // Test reversed linked list
     printf("Computed Output: [");
     print_list(n0);
     printf("]\n");
