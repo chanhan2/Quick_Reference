@@ -90,6 +90,7 @@ int setup_test_1() {
         return 0;
     }
 
+    // Setting up initial list
     n0 = append_node(
              append_node(
                  append_node(

@@ -102,7 +102,7 @@ int setup_test_1() {
         return 0;
     }
 
-    // Setting pointers
+    // Setting initial tree
     n0 = principal_insert(n0, new_node(2));
     n0 = principal_insert(n0, new_node(7));
     n0 = principal_insert(n0, new_node(1));
