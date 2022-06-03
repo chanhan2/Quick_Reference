@@ -46,8 +46,8 @@ struct ListNode* delete_list(struct ListNode* head) {
 
 // The actual reverse linked list part
 struct ListNode* append_list_mfnt(struct ListNode* lst1, struct ListNode* lst2) {
-    /* append_list_mfnt() - Appends list lst1 to list lst2 by using "append to
-     *                      front" method
+    /* append_list_mfnt() - The indvidial nodes in list lst1 are appended to list
+     *                      lst2 by using "append to front" method
      */
     if (!lst1) return lst2;
 
