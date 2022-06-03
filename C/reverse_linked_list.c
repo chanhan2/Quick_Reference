@@ -9,7 +9,7 @@ struct ListNode {
     struct ListNode *next;
 };
 
-// Basic functions to create a linked list
+// Basic linked list functions to test functionality
 struct ListNode* new_node(int val) {
     struct ListNode* node;
     if (!(node = (struct ListNode*)malloc(sizeof(struct ListNode)))) {
@@ -34,6 +34,14 @@ struct ListNode* append_node(struct ListNode* head, struct ListNode* node) {
 
     head->next = append_node(head->next, node);
     return head;
+}
+
+struct ListNode* delete_list(struct ListNode* head) {
+    if (!head) return head;
+
+    head->next = delete_list(head->next);
+    free(head);
+    return head = NULL;
 }
 
 // The actual reverse linked list part
@@ -69,14 +77,6 @@ int get_list_length(struct ListNode* head) {
     if (!head) return 0;
 
     return 1 + get_list_length(head->next);
-}
-
-struct ListNode* delete_list(struct ListNode* head) {
-    if (!head) return head;
-
-    head->next = delete_list(head->next);
-    free(head);
-    return head = NULL;
 }
 
 /* Brute force explict setup and test (LOL)
