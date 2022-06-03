@@ -59,6 +59,7 @@ struct ListNode* append_list_mfnt(struct ListNode* lst1, struct ListNode* lst2) 
 
 struct ListNode* reverseList(struct ListNode* head) {
     if (!head) return head;
+
     head = append_list_mfnt(head, NULL);
     return head;
 }
