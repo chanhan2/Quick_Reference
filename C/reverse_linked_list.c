@@ -45,8 +45,7 @@ struct ListNode* append_list_mfnt(struct ListNode* lst1, struct ListNode* lst2) 
 
     struct ListNode* rest = lst1->next;
     lst1->next = NULL;
-    lst2 = append_to_front(lst2, lst1);
-    lst2 = append_list_mfnt(rest, lst2);
+    lst2 = append_list_mfnt(rest, lst2 = append_to_front(lst2, lst1));
     return lst2;
 }
 
@@ -94,7 +93,10 @@ int setup_test_1() {
     int i;
     for (i = 2; i <= 5; i++) n0 = append_node(n0, new_node(i));
 
-    if (get_list_length(n0) != 5) return printf("Failed to create list\n");
+    if (get_list_length(n0) != 5) {
+        printf("Failed to create list\n");
+        return 0;
+    }
 
     // Print initial linked list
     printf("Computed Input: head = [");
