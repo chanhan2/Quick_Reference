@@ -53,8 +53,7 @@ struct ListNode* append_list_mfnt(struct ListNode* lst1, struct ListNode* lst2) 
 
     struct ListNode* rest = lst1->next;
     lst1->next = NULL;
-    lst2 = append_list_mfnt(rest, lst2 = append_to_front(lst2, lst1));
-    return lst2;
+    return lst2 = append_list_mfnt(rest, lst2 = append_to_front(lst2, lst1));
 }
 
 struct ListNode* reverseList(struct ListNode* head) {
