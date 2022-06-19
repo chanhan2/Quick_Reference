@@ -45,7 +45,7 @@ struct TreeNode* delete_tree(struct TreeNode* root) {
     root->left = delete_tree(root->left);
     root->right = delete_tree(root->right);
     free(root);
-    return (root = NULL);
+    return root = NULL;
 }
 
 // The actual tree inversion part
