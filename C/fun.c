@@ -13,7 +13,7 @@ void free_partition_str_lst(char** lst, int idx) {
     if (!lst) return;
 
     int i;
-    for (i = 0; i <= idx; i++) free(lst[i]);
+    for (i = 0; i <= idx || lst[i] != NULL; i++) free(lst[i]);
     free(lst);
 }
 
@@ -108,6 +108,7 @@ int main (int argc, char** argv) {
     int n = 20;
     char** lst;
     if (!(lst = fizzbuzz(n))) {
+        free_partition_str_lst(lst, n);
         printf("Failed to build fizzbuzz list...\nGo buying more RAM.\n");
         return 0;
     }
