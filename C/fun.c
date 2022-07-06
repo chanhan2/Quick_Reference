@@ -13,7 +13,7 @@ void free_partition_str_lst(char** lst, int idx) {
     if (!lst) return;
 
     int i;
-    for (i = 0; i <= idx || lst[i] != NULL; i++) free(lst[i]);
+    for (i = 0; i <= idx && lst[i] != NULL; i++) free(lst[i]);
     free(lst);
 }
 
