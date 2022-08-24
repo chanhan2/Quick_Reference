@@ -1,17 +1,26 @@
+
+
 void rotate(int** matrix, int matrixSize, int* matrixColSize){
-    int tmp[matrixSize][matrixSize];
+    //  This is the grade 9 and grade 10 method I've used before.
+    //  The below method has horrible aggregate time complexity,
+    //  as it uses 2 for loops, which is not needed for this
+    //  problem.
     int i;
-    int i2;
-    for (i = matrixSize - 1, i2 = 0; i >= 0; i--, i2++) {
+    for (i = 0; i < matrixSize; i++) {
         int j;
-        for (j = 0; j < matrixSize; j++) {
-            tmp[j][i2] = matrix[i][j];
+        for (j = i + 1; j < matrixSize; j++) {
+            int tmp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = tmp;
         }
     }
 
-    for (int i = 0; i < matrixSize; i++) {
-        for (int j = 0; j < matrixSize; j++) {
-            matrix[i][j] = tmp[i][j];
+    for (i = 0; i < matrixSize; i++) {
+        int j;
+        for (j = 0; j < matrixSize / 2; j++) {
+            int tmp = matrix[i][j];
+            matrix[i][j] = matrix[i][matrixSize - 1 - j];
+            matrix[i][matrixSize - 1 - j] = tmp;
         }
     }
 }
